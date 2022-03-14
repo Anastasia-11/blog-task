@@ -42,7 +42,7 @@ public class AccountController : Controller
                     return Redirect(model.ReturnUrl);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("List", "Article");
             }
         }
         ModelState.AddModelError("", "Неправильный логин или пароль");
@@ -55,6 +55,6 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("List", "Article");
     }
 }
