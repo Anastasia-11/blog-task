@@ -1,0 +1,16 @@
+﻿@model Article
+
+<div class="col-sm-6 col-md-4">
+    <div class="card">
+        <div class="card h-100">
+            <img class="card-img-top" src="https://s1.1zoom.ru/big7/888/Eyes_Owls_Bubo_502568.jpg" alt="...">
+            <div class="card-body">
+                <h3 class="card-title">@Model.Name</h3>
+                <p class="card-text">@Model.ShortDescription</p>
+                <p>
+                    <a asp-controller="Article" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-dark" role="button">Читать статью</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿@model IQueryable<Article>
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="row">
+    @foreach (var article in Model)
+    {
+        @await Html.PartialAsync("ArticleInfo", article)
+    }
+</div>
