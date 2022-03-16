@@ -1,8 +1,11 @@
-﻿namespace blog_web_app.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace blog_web_app.Models;
 
 public class Article
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; }
     public string? ShortDescription { get; set; }
     public string Description { get; set; }
