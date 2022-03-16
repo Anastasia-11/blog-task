@@ -16,7 +16,10 @@ public class ArticleController : Controller
 
     public IActionResult List() => View(_articleService.Articles);
 
-    public IActionResult ArticleInfo(Guid id) => View(_articleService.GetArticleById(id));
+    public async Task<IActionResult> ArticleInfo(Guid id)
+    {
+        return View(await _articleService.GetByIdAsync(id));
+    }
     
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

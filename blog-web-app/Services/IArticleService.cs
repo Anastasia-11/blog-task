@@ -5,5 +5,8 @@ namespace blog_web_app.Services;
 public interface IArticleService
 {
     IQueryable<Article> Articles { get; }
-    Article? GetArticleById(Guid id);
+    Task<Article?> GetByIdAsync(Guid? id);
+    Task AddAsync(Article article);
+    Task UpdateAsync(Article article);
+    Task DeleteAsync(Guid? id);
 }
