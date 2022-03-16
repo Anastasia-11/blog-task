@@ -1,0 +1,23 @@
+﻿@model IQueryable<Article>
+
+<div class="nav-link text-dark"><h4>Список статей</h4></div>
+<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+@if (!Model.Any())
+{
+    <li class="list-group-item">Статей нет</li>
+}
+else
+{
+    foreach (var article in Model)
+    {
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                @article.Name
+                <a class="btn btn-sm btn-primary" asp-route-id="@article.Id" asp-controller="Admin" asp-action="Edit">Редактировать</a>
+                <a class="btn btn-sm btn-danger" asp-route-id="@article.Id" asp-controller="Admin" asp-action="Delete">Удалить</a>
+            </li>
+        </ul>
+    }
+}
+<a class="btn btn-sm btn-primary" asp-controller="Admin" asp-action="Create">Создать статью</a>
