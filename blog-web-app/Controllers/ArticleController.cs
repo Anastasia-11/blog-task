@@ -16,7 +16,7 @@ public class ArticleController : Controller
 
     public IActionResult List() => View(_articleService.Articles);
 
-    public IActionResult Index(Guid id) => View(_articleService.GetArticleById(id));
+    public IActionResult ArticleInfo(Guid id) => View(_articleService.GetArticleById(id));
     
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
