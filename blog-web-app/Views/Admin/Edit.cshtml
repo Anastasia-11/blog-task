@@ -16,6 +16,6 @@
         <input type="text" asp-for="Description" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a asp-action="Delete" class="btn btn-danger">Удалить</a>
+    <button asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить</button>
     <a asp-action="Index" class="btn btn-secondary">Отмена</a>
 </form>

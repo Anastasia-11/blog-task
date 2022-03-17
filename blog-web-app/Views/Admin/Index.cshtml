@@ -14,8 +14,10 @@ else
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 @article.Name
-                <a class="btn btn-sm btn-primary" asp-route-id="@article.Id" asp-controller="Admin" asp-action="Edit">Редактировать</a>
-                <a class="btn btn-sm btn-danger" asp-route-id="@article.Id" asp-controller="Admin" asp-action="Delete">Удалить</a>
+                <form asp-route-id="@article.Id" asp-controller="Admin" asp-action="Delete" method="post">
+                    <a class="btn btn-sm btn-primary" asp-route-id="@article.Id" asp-controller="Admin" asp-action="Edit">Редактировать</a>
+                    <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                </form>
             </li>
         </ul>
     }

@@ -35,7 +35,8 @@ public class ArticleService : IArticleService
     public async Task DeleteAsync(Guid? id)
     {
         var article = await GetByIdAsync(id);
-        if(article != null)
-            _applicationContext.Remove(article);
+        if (article == null) return;
+        _applicationContext.Remove(article);
+        await _applicationContext.SaveChangesAsync();
     }
 }
