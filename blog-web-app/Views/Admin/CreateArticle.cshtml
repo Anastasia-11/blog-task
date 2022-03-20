@@ -1,8 +1,8 @@
-﻿@model blog_web_app.ViewModels.EditArticleViewModel
+﻿@model blog_web_app.ViewModels.CreateArticleViewModel
 
-<div class="nav-link text-dark"><h4>Редактирование статьи</h4></div>
+<div class="nav-link text-dark"><h4>Новая статья</h4></div>
 <div asp-validation-summary="All" class="text-danger"></div>
-<form method="post" asp-controller="Admin" asp-action="Edit" asp-route-id="@Model.Id">
+<form method="post" asp-controller="Admin" asp-action="CreateArticle">
     <div class="form-group">
         <label asp-for="Name" class="control-label">Имя</label>
         <input type="text" asp-for="Name" class="form-control" />
@@ -16,6 +16,5 @@
         <input type="text" asp-for="Description" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
-    <button asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить</button>
-    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+    <a asp-action="Articles" class="btn btn-secondary">Отмена</a>
 </form>
