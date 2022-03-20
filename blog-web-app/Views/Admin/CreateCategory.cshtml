@@ -1,0 +1,12 @@
+﻿@model blog_web_app.Models.Category
+
+<div class="nav-link text-dark"><h4>Новая категория</h4></div>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form method="post" asp-controller="Admin" asp-action="CreateCategory">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Имя</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a asp-action="Articles" class="btn btn-secondary">Отмена</a>
+</form>

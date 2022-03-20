@@ -1,0 +1,25 @@
+﻿@model IQueryable<Category>
+
+<div class="nav-link text-dark"><h4>Список категорий</h4></div>
+<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+@if (!Model.Any())
+{
+    <li class="list-group-item">Категорий нет</li>
+}
+else
+{
+    foreach (var category in Model)
+    {
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                @category.Name
+                <form asp-route-id="@category.Id" asp-controller="Admin" asp-action="DeleteCategory" method="post">
+                    <a class="btn btn-sm btn-primary" asp-route-id="@category.Id" asp-controller="Admin" asp-action="EditCategory">Редактировать</a>
+                    <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                </form>
+            </li>
+        </ul>
+    }
+}
+<a class="btn btn-sm btn-primary" asp-controller="Admin" asp-action="CreateCategory">Создать категорию</a>

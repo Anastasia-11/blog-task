@@ -10,4 +10,5 @@ public class ApplicationContext : DbContext
     }
     
     public DbSet<Article> Articles { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }

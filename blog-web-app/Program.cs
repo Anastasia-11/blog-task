@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<UserContext>();
 builder.Services.AddTransient<IArticleService, ArticleService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

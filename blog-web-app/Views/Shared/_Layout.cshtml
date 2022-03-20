@@ -24,6 +24,12 @@
                     </li>
                     @if(User.Identity.IsAuthenticated)
                     {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Articles">Статьи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Categories">Категории</a>
+                        </li>
                         <p>@User.Identity.Name</p>
                         <form method="post" asp-controller="Account" asp-action="Logout">
                             <input type="submit" value="Выход" />

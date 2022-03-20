@@ -1,0 +1,13 @@
+﻿@model blog_web_app.Models.Category
+
+<div class="nav-link text-dark"><h4>Редактирование категории</h4></div>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form method="post" asp-controller="Admin" asp-action="EditCategory" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Имя</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <button asp-action="DeleteCategory" asp-route-id="@Model.Id" class="btn btn-danger">Удалить</button>
+    <a asp-action="Categories" class="btn btn-secondary">Отмена</a>
+</form>
