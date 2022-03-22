@@ -4,12 +4,12 @@ namespace blog_web_app.ViewModels;
 
 public class LoginViewModel
 {
-    [Required]
+    [Required(ErrorMessage = "Не указан email")]
     [Display(Name = "Email")]
     [DataType(DataType.EmailAddress)]
     public string? Email { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Не указан пароль")]
     [DataType(DataType.Password)]
     [Display(Name = "Пароль")]
     public string? Password { get; set; }
