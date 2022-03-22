@@ -29,22 +29,26 @@ public class AdminController : Controller
         var article = await _articleService.GetByIdAsync(id);
         if (article == null)
             return NotFound();
-            
-        var model = new EditArticleViewModel
+
+        var model = new ArticleViewModel
         {
-            Id = article.Id, Name = article.Name, ShortDescription = article.ShortDescription,
-            Description = article.Description
+            Name = article.Name, Description = article.Description, 
+            ShortDescription = article.ShortDescription, CategoryId = article.CategoryId, 
+            Categories = _categoryService.Categories
         };
-        
+
         return View(model);
     }
     
     [HttpPost]
-    public async Task<IActionResult> EditArticle(EditArticleViewModel model)
+    public async Task<IActionResult> EditArticle(ArticleViewModel model)
     {
-        if (!ModelState.IsValid) 
+        if (!ModelState.IsValid)
+        {
+            model.Categories = _categoryService.Categories;
             return View(model);
-        
+        }
+
         var article = await _articleService.GetByIdAsync(model.Id);
         if (article == null) 
             return View(model);
@@ -52,6 +56,7 @@ public class AdminController : Controller
         article.Name = model.Name;
         article.ShortDescription = model.ShortDescription;
         article.Description = model.Description;
+        article.CategoryId = model.CategoryId;
         
         await _articleService.UpdateAsync(article);
         return RedirectToAction("Articles");
@@ -92,20 +97,33 @@ public class AdminController : Controller
     }
 
     [HttpGet]
-    public IActionResult CreateArticle() => View();
+    public IActionResult CreateArticle()
+    {
+        var model = new ArticleViewModel
+        {
+            Categories = _categoryService.Categories
+        };
+        return View("CreateArticle", model);
+    }
 
     [HttpPost]
-    public async Task<IActionResult> CreateArticle(CreateArticleViewModel model)
+    public async Task<IActionResult> CreateArticle(ArticleViewModel model)
     {
-        if (!ModelState.IsValid) 
+        if (!ModelState.IsValid)
+        {
+            model.Categories = _categoryService.Categories;
             return View(model);
+        }
         
-        var article = new Article
-            { Name = model.Name, Description = model.Description, ShortDescription = model.ShortDescription };
+        var article = new Article 
+        { 
+            Name = model.Name, Description = model.Description, 
+            ShortDescription = model.ShortDescription, CategoryId = model.CategoryId 
+        };
         await _articleService.AddAsync(article);
         return RedirectToAction("Articles");
     }
-    
+
     [HttpGet]
     public IActionResult CreateCategory() => View();
 
@@ -131,7 +149,10 @@ public class AdminController : Controller
     public async Task<IActionResult> DeleteCategory(Guid? id)
     {
         if (id == null) return NotFound();
-        await _categoryService.DeleteAsync(id);
+        if (_articleService.Articles.Any(a => a.CategoryId == id))
+        {
+            await _categoryService.DeleteAsync(id);
+        }
         return RedirectToAction("Categories");
     }
 }
