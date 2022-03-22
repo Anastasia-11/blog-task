@@ -3,7 +3,6 @@ using blog_web_app.Models;
 using blog_web_app.Services;
 using blog_web_app.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace blog_web_app.Controllers;
 

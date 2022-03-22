@@ -4,20 +4,20 @@
 <div asp-validation-summary="All" class="text-danger"></div>
 <form method="post" asp-controller="Admin" asp-action="CreateArticle">
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Имя</label>
-        <input type="text" asp-for="Name" class="form-control" />
+        <label asp-for="Article.Name" class="control-label">Имя</label>
+        <input type="text" asp-for="Article.Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="ShortDescription" class="control-label">Краткое описание</label>
-        <input type="text" asp-for="ShortDescription" class="form-control" />
+        <label asp-for="Article.ShortDescription" class="control-label">Краткое описание</label>
+        <input type="text" asp-for="Article.ShortDescription" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label">Описание</label>
-        <input type="text" asp-for="Description" class="form-control" />
+        <label asp-for="Article.Description" class="control-label">Описание</label>
+        <input type="text" asp-for="Article.Description" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="CategoryId" class="control-label">Выберите категорию:</label>
-        <select asp-for="CategoryId" class="form-control">
+        <label asp-for="Article.CategoryId" class="control-label">Выберите категорию:</label>
+        <select asp-for="Article.CategoryId" class="form-control">
             @foreach(var category in Model.Categories)
             {
                 <option value="@category.Id">@category.Name</option>

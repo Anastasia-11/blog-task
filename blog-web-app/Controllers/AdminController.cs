@@ -32,8 +32,7 @@ public class AdminController : Controller
 
         var model = new ArticleViewModel
         {
-            Name = article.Name, Description = article.Description, 
-            ShortDescription = article.ShortDescription, CategoryId = article.CategoryId, 
+            Article = article,
             Categories = _categoryService.Categories
         };
 
@@ -49,14 +48,14 @@ public class AdminController : Controller
             return View(model);
         }
 
-        var article = await _articleService.GetByIdAsync(model.Id);
+        var article = await _articleService.GetByIdAsync(model.Article.Id);
         if (article == null) 
             return View(model);
         
-        article.Name = model.Name;
-        article.ShortDescription = model.ShortDescription;
-        article.Description = model.Description;
-        article.CategoryId = model.CategoryId;
+        article.Name = model.Article.Name;
+        article.ShortDescription = model.Article.ShortDescription;
+        article.Description = model.Article.Description;
+        article.CategoryId = model.Article.CategoryId;
         
         await _articleService.UpdateAsync(article);
         return RedirectToAction("Articles");
@@ -114,12 +113,8 @@ public class AdminController : Controller
             model.Categories = _categoryService.Categories;
             return View(model);
         }
-        
-        var article = new Article 
-        { 
-            Name = model.Name, Description = model.Description, 
-            ShortDescription = model.ShortDescription, CategoryId = model.CategoryId 
-        };
+
+        var article = model.Article;
         await _articleService.AddAsync(article);
         return RedirectToAction("Articles");
     }
