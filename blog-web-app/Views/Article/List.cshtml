@@ -1,11 +1,20 @@
-﻿@model IQueryable<Article>
+﻿@model blog_web_app.ViewModels.ArticleListViewModel
 
 @{
     Layout = "_Layout";
 }
-
+<form class="form-inline">
+    <label>Выберите категорию:</label>
+    <select name="categoryId" class="form-control">
+        @foreach(var category in Model.Categories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </select>
+    <input type="submit" />
+</form>
 <div class="row">
-    @foreach (var article in Model)
+    @foreach (var article in Model.Articles)
     {
         @await Html.PartialAsync("ArticleBriefInfo", article)
     }
