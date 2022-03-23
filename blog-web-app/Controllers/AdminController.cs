@@ -40,7 +40,7 @@ public class AdminController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> EditArticle(ArticleViewModel model)
+    public async Task<IActionResult> EditArticle(ArticleViewModel model, IFormFile? image = null)
     {
         if (!ModelState.IsValid)
         {
@@ -56,6 +56,14 @@ public class AdminController : Controller
         article.ShortDescription = model.Article.ShortDescription;
         article.Description = model.Article.Description;
         article.CategoryId = model.Article.CategoryId;
+        
+        if (image != null)
+        {
+            using (var binaryReader = new BinaryReader(image.OpenReadStream()))
+            {
+                article.ImageData = binaryReader.ReadBytes((int)image.Length);
+            }
+        }
         
         await _articleService.UpdateAsync(article);
         return RedirectToAction("Articles");
@@ -106,7 +114,7 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateArticle(ArticleViewModel model)
+    public async Task<IActionResult> CreateArticle(ArticleViewModel model, IFormFile? image = null)
     {
         if (!ModelState.IsValid)
         {
@@ -115,6 +123,14 @@ public class AdminController : Controller
         }
 
         var article = model.Article;
+        if (image != null)
+        {
+            using (var binaryReader = new BinaryReader(image.OpenReadStream()))
+            {
+                article.ImageData = binaryReader.ReadBytes((int)image.Length);
+            }
+        }
+        
         await _articleService.AddAsync(article);
         return RedirectToAction("Articles");
     }

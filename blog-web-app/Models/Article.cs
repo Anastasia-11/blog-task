@@ -20,4 +20,6 @@ public class Article
     [Required(ErrorMessage = "Не указано описание статьи")]
     [Display(Name = "Описание")]
     public string Description { get; set; }
+    
+    public byte[]? ImageData { get; set; }
 }

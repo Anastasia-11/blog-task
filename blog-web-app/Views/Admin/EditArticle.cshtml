@@ -2,7 +2,7 @@
 
 <div class="nav-link text-dark"><h4>Редактирование статьи</h4></div>
 <div asp-validation-summary="All" class="text-danger"></div>
-<form method="post" asp-controller="Admin" asp-action="EditArticle">
+<form method="post" asp-controller="Admin" asp-action="EditArticle" enctype="multipart/form-data">
     <div class="form-group">
         <input type="hidden" asp-for="Article.Id" />
     </div>
@@ -26,6 +26,15 @@
                 <option value="@category.Id">@category.Name</option>
             }
         </select>
+    </div>
+    <div class="form-group">
+        <label  class="control-label">Изображение</label>
+        <br>
+        @if (Model?.Article.ImageData != null)
+        {
+            <img style='width:500px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Article.ImageData))" alt="image"/>
+        }
+        <input type="file" name="image" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
     <button asp-action="DeleteArticle" asp-route-id="@Model.Article.Id" class="btn btn-danger">Удалить</button>

@@ -13,6 +13,10 @@
 <body>
 <div>
     <h3>@Model?.Name</h3>
+    @if (Model?.ImageData != null)
+    {
+        <img style='width:800px; display: block; margin-left: auto; margin-right: auto;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ImageData))" alt="image"/>
+    }
     <p>@Model?.Description</p>
     <p>Категория: @ViewBag.Category</p>
 </div>
