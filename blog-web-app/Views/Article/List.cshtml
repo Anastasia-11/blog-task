@@ -19,3 +19,18 @@
         @await Html.PartialAsync("ArticleBriefInfo", article)
     }
 </div>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="List" asp-route-currentPage="@(Model.PageViewModel.CurrentPageNumber - 1)" class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="List" asp-route-currentPage="@(Model.PageViewModel.CurrentPageNumber + 1)" class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

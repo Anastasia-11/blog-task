@@ -17,17 +17,26 @@ public class ArticleController : Controller
         _categoryService = categoryService;
     }
 
-    public IActionResult List(Guid? categoryId)
+    public IActionResult List(Guid? categoryId, int currentPage = 1)
     {
         var categories = _categoryService.Categories.ToList();
         categories.Insert(0, new Category { Id = Guid.Empty, Name = "Все" });
- 
+        
+        int pageSize = 3;
+        
+        var articles = categoryId != null && categoryId != Guid.Empty
+            ? _articleService.Articles
+                .Where(a => a.CategoryId == categoryId)
+            : _articleService.Articles;
+        
+        var count = articles.Count();
+        var pageViewModel = new PageViewModel(count, currentPage, pageSize);
+        
         var model = new ArticleListViewModel
         {
             Categories = categories.AsQueryable(),
-            Articles = categoryId != null && categoryId != Guid.Empty
-                ? _articleService.Articles.Where(a => a.CategoryId == categoryId) 
-                : _articleService.Articles
+            Articles = articles.Skip((currentPage - 1) * pageSize).Take(pageSize),
+            PageViewModel = pageViewModel
         };
 
         return View(model);
