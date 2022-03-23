@@ -35,7 +35,14 @@ public class ArticleController : Controller
 
     public async Task<IActionResult> ArticleInfo(Guid id)
     {
-        return View(await _articleService.GetByIdAsync(id));
+        var model = await _articleService.GetByIdAsync(id);
+        if(model != null)
+        {
+            var category = _categoryService.GetByIdAsync(model.CategoryId).Result;
+            ViewBag.Category = category == null ? "не указано" : category.Name;
+        }
+
+        return View(model);
     }
     
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

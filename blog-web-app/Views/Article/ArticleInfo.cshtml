@@ -6,14 +6,15 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="ru">
 <head>
     <title>title</title>
 </head>
 <body>
 <div>
-    <h3>@Model.Name</h3>
-    <h2>@Model.Description</h2>
+    <h3>@Model?.Name</h3>
+    <p>@Model?.Description</p>
+    <p>Категория: @ViewBag.Category</p>
 </div>
 </body>
 </html>
