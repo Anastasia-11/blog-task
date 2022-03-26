@@ -3,6 +3,15 @@
 <div class="nav-link text-dark"><h4>Список категорий</h4></div>
 <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
+@if (TempData["error-message"] != null)
+{
+    <div class="alert alert-danger">@TempData["error-message"]</div>
+}
+else if (TempData["success-message"] != null)
+{
+   <div class="alert alert-success">@TempData["success-message"]</div>
+}
+
 @if (!Model.Any())
 {
     <li class="list-group-item">Категорий нет</li>

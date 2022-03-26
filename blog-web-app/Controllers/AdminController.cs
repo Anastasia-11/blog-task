@@ -162,9 +162,15 @@ public class AdminController : Controller
     public async Task<IActionResult> DeleteCategory(Guid? id)
     {
         if (id == null) return NotFound();
-        if (_articleService.Articles.Any(a => a.CategoryId == id))
+        var category = _categoryService.GetByIdAsync(id).Result;
+        if (!_articleService.Articles.Any(a => a.CategoryId == id))
         {
+            TempData["success-message"] = $"Категория \"{category.Name}\" успешно удалена";
             await _categoryService.DeleteAsync(id);
+        }
+        else
+        {
+            TempData["error-message"] = $"Категория \"{category.Name}\" относится к одной или более статьям и не может быть удалена";
         }
         return RedirectToAction("Categories");
     }
