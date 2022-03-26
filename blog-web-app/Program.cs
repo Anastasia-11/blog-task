@@ -36,4 +36,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Article}/{action=List}/{id?}");
 
+app.MapControllerRoute(
+    name: "pagination",
+    pattern: "Articles/Page{currentPage}",
+    defaults: new { Controller = "Article", action = "List" });
+
+
 app.Run();
