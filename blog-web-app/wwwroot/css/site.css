@@ -42,3 +42,8 @@ body {
 .glyphicon-chevron-left:before {
   content: "\f053";
 }
+
+.input-validation-error { 
+  border-color: red; 
+  background-color: #fee; 
+}
