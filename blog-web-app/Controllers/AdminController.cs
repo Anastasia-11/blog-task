@@ -1,10 +1,12 @@
 ﻿using blog_web_app.Models;
 using blog_web_app.Services;
 using blog_web_app.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blog_web_app.Controllers;
 
+[Authorize]
 public class AdminController : Controller
 {
     private readonly IArticleService _articleService;

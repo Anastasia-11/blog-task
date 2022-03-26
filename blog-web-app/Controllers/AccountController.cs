@@ -1,10 +1,12 @@
 ﻿using blog_web_app.Models;
 using blog_web_app.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blog_web_app.Controllers;
 
+[Authorize]
 public class AccountController : Controller
 {
     private readonly UserManager<User> _userManager;
@@ -17,12 +19,14 @@ public class AccountController : Controller
     }
     
     [HttpGet]
-    public IActionResult Login(string returnUrl = null)
+    [AllowAnonymous]
+    public IActionResult Login(string? returnUrl = null)
     {
         return View(new LoginViewModel { ReturnUrl = returnUrl });
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
@@ -33,8 +37,7 @@ public class AccountController : Controller
         if (user != null)
         {
             await _signInManager.SignOutAsync();
-            var result =
-                await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
             if (result.Succeeded)
             {
                 if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
@@ -52,9 +55,14 @@ public class AccountController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Logout()
+    public async Task<IActionResult> Logout(string? returnUrl = null)
     {
         await _signInManager.SignOutAsync();
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+        {
+            return Redirect(returnUrl);
+        }
+
         return RedirectToAction("List", "Article");
     }
 }
