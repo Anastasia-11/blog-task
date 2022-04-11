@@ -22,4 +22,9 @@ public class Article
     public string Description { get; set; }
     
     public byte[]? ImageData { get; set; }
+    
+    [Required]
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+    public DateTime CreationDate { get; set; } = DateTime.UtcNow.Date;
 }

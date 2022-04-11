@@ -110,6 +110,7 @@ public class AdminController : Controller
     {
         var model = new ArticleViewModel
         {
+            Article = new(),
             Categories = _categoryService.Categories
         };
         return View("CreateArticle", model);
@@ -165,12 +166,12 @@ public class AdminController : Controller
         var category = _categoryService.GetByIdAsync(id).Result;
         if (!_articleService.Articles.Any(a => a.CategoryId == id))
         {
-            TempData["success-message"] = $"Категория \"{category.Name}\" успешно удалена";
+            TempData["success-message"] = $"Категория \"{category?.Name}\" успешно удалена";
             await _categoryService.DeleteAsync(id);
         }
         else
         {
-            TempData["error-message"] = $"Категория \"{category.Name}\" относится к одной или более статьям и не может быть удалена";
+            TempData["error-message"] = $"Категория \"{category?.Name}\" относится к одной или более статьям и не может быть удалена";
         }
         return RedirectToAction("Categories");
     }

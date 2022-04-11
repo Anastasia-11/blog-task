@@ -41,5 +41,6 @@ app.MapControllerRoute(
     pattern: "Articles/Page{currentPage}",
     defaults: new { Controller = "Article", action = "List" });
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();

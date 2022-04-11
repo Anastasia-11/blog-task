@@ -17,24 +17,30 @@ public class ArticleController : Controller
         _categoryService = categoryService;
     }
 
-    public IActionResult List(Guid? categoryId, int currentPage = 1)
+    public IActionResult List(ArticleSearchViewModel searchViewModel, int currentPage = 1)
     {
         var categories = _categoryService.Categories.ToList();
         categories.Insert(0, new Category { Id = Guid.Empty, Name = "Все" });
         
         int pageSize = 3;
-        
-        var articles = categoryId != null && categoryId != Guid.Empty
+
+        var articles = searchViewModel.CategoryId != null && searchViewModel.CategoryId != Guid.Empty
             ? _articleService.Articles
-                .Where(a => a.CategoryId == categoryId)
+                .Where(a => a.CategoryId == searchViewModel.CategoryId)
             : _articleService.Articles;
+
+        if (searchViewModel.StartDate != null && searchViewModel.EndDate != null)
+        {
+            articles = articles.Where(a => a.CreationDate.Date >= searchViewModel.StartDate
+                                                && a.CreationDate.Date <= searchViewModel.EndDate);
+        }
         
         var count = articles.Count();
         var pageViewModel = new PageViewModel(count, currentPage, pageSize);
         
         var model = new ArticleListViewModel
         {
-            Categories = categories.AsQueryable(),
+            SearchViewModel = new ArticleSearchViewModel { Categories = categories.AsQueryable() },
             Articles = articles.Skip((currentPage - 1) * pageSize).Take(pageSize),
             PageViewModel = pageViewModel
         };

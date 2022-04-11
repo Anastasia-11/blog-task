@@ -3,16 +3,9 @@
 @{
     Layout = "_Layout";
 }
-<form class="form-inline">
-    <label>Выберите категорию:</label>
-    <select name="categoryId" class="form-control">
-        @foreach(var category in Model.Categories)
-        {
-            <option value="@category.Id">@category.Name</option>
-        }
-    </select>
-    <button class="btn btn-dark" type="submit">Поиск</button>
-</form>
+
+@await Html.PartialAsync("SearchForm", Model.SearchViewModel)
+
 <div class="row">
     @foreach (var article in Model.Articles)
     {
@@ -20,17 +13,4 @@
     }
 </div>
 
-@if (Model.PageViewModel.HasPreviousPage)
-{
-    <a asp-action="List" asp-route-currentPage="@(Model.PageViewModel.CurrentPageNumber - 1)" class="btn btn-outline-dark">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        Назад
-    </a>
-}
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-action="List" asp-route-currentPage="@(Model.PageViewModel.CurrentPageNumber + 1)" class="btn btn-outline-dark">
-        Вперед
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
-}
+@await Html.PartialAsync("Pagination", Model.PageViewModel)

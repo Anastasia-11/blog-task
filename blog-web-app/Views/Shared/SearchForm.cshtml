@@ -1,0 +1,14 @@
+﻿@model blog_web_app.ViewModels.ArticleSearchViewModel
+
+<form class="form-inline">
+    <label>Выберите категорию:</label>
+    <select asp-for="CategoryId" class="form-control">
+        @foreach(var category in Model.Categories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </select>
+    <input class="form-control" type="date" date-val="true" asp-for="StartDate" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")">
+    <input class="form-control" type="date" date-val="true" asp-for="EndDate" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")">
+    <button class="btn btn-dark" type="submit">Поиск</button>
+</form>
